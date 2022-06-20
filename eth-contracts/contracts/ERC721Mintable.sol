@@ -9,15 +9,32 @@ import "./Oraclize.sol";
 contract Ownable {
     //  TODO's
     //  1) create a private '_owner' variable of type address with a public getter function
+    address private _owner;
+
+   
     //  2) create an internal constructor that sets the _owner var to the creater of the contract 
     //  3) create an 'onlyOwner' modifier that throws if called by any account other than the owner.
     //  4) fill out the transferOwnership function
     //  5) create an event that emits anytime ownerShip is transfered (including in the constructor)
 
+    modifier onlyOwner {
+        require(msg.sender==_owner);
+        _;
+    }
+    event ownerShip(address newOwner);
+    constructor(){
+        _owner=msg.sender;
+        emit ownerShip(msg.sender);
+    }
+    function contractowner(address owner) public
+    {
+        _owner=owner;    
+    }
     function transferOwnership(address newOwner) public onlyOwner {
         // TODO add functionality to transfer control of the contract to a newOwner.
         // make sure the new owner is a real address
-
+        require(newOwner == address(newOwner),"Invalid address");
+        _owner=newOwner;
     }
 }
 
@@ -28,6 +45,28 @@ contract Ownable {
 //  4) create 'whenNotPaused' & 'paused' modifier that throws in the appropriate situation
 //  5) create a Paused & Unpaused event that emits the address that triggered the event
 
+contract Pausable is Ownable{
+    bool private _paused;
+    modifier whenNotPaused
+    {
+        require(_paused==false);
+        _;
+    }
+    modifier paused{
+        require(_paused==true);
+        _;
+    }
+    event Paused(address owner);
+    event unpaused(address owner);
+    constructor() internal{
+        _paused=false;
+        emit unpaused(msg.sender);
+    }
+    function setter() public onlyOwner {
+        _paused=true;
+        emit paused(msg.sender);
+    }
+}
 contract ERC165 {
     bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
     /*
@@ -105,27 +144,32 @@ contract ERC721 is Pausable, ERC165 {
     function balanceOf(address owner) public view returns (uint256) {
         // TODO return the token balance of given address
         // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
+        _ownedTokensCount[owner]=Counter.Counter.current();
+        return owner.balance;   
     }
 
     function ownerOf(uint256 tokenId) public view returns (address) {
         // TODO return the owner of the given tokenId
+        return _tokenOwner[tokenId];
     }
 
 //    @dev Approves another address to transfer the given token ID
-    function approve(address to, uint256 tokenId) public {
+    function approve(address to, uint256 tokenId) public onlyOwner{
         
         // TODO require the given address to not be the owner of the tokenId
-
+        require(_tokenOwner[tokenId]!=to,"Just a gentle reminder you are already the owner");
         // TODO require the msg sender to be the owner of the contract or isApprovedForAll() to be true
-
+        //srequire(isApprovedForAll(msg.sender,to));
         // TODO add 'to' address to token approvals
-
+        _tokenApprovals[to]=tokenId;
         // TODO emit Approval Event
+        emit Approval(msg.sender,to,tokenId);
 
     }
 
     function getApproved(uint256 tokenId) public view returns (address) {
         // TODO return token approval if it exists
+        return _tokenApprovals[tokenId];
     }
 
     /**
@@ -192,9 +236,11 @@ contract ERC721 is Pausable, ERC165 {
     function _mint(address to, uint256 tokenId) internal {
 
         // TODO revert if given tokenId already exists or given address is invalid
-  
+        require(_tokenOwner[tokenId]==address(0x0),"Token already has a owner");
         // TODO mint tokenId to given address & increase token count of owner
-
+        _tokenOwner[tokenId]=to;
+        _ownedTokensCount[to]=Counters.Counter.increment();
+        Transfer(msg.sender, to, tokenId);
         // TODO emit Transfer event
     }
 
@@ -203,14 +249,17 @@ contract ERC721 is Pausable, ERC165 {
     function _transferFrom(address from, address to, uint256 tokenId) internal {
 
         // TODO: require from address is the owner of the given token
-
+        require(_tokenOwner[from]==tokenId,"Not a owner of given token");
         // TODO: require token is being transfered to valid address
-        
+        require(to==address(to),"Invalid address");
         // TODO: clear approval
-
+        _tokenApprovals[tokenId]=address(0x0);
         // TODO: update token counts & transfer ownership of the token ID 
-
+        _ownedTokensCount[from]=Counters.Counter.decrement();
+        transferFrom(from, to, tokenId);
+        _ownedTokensCount[to]=Counters.Counter.increment();
         // TODO: emit correct event
+        Transfer(from, to, tokenId);
     }
 
     /**
