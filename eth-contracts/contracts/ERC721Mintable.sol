@@ -465,9 +465,17 @@ contract ERC721Enumerable is ERC165, ERC721 {
 contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     
     // TODO: Create private vars for token _name, _symbol, and _baseTokenURI (string)
-
+     string private _name;
+     string private _symbol;
+     string private _baseTokenURI;
+    /*struct token_information{
+        string  token_name;
+        string  token_symbol;
+        string  token_baseTokenURI;
+    }*/
     // TODO: create private mapping of tokenId's to token uri's called '_tokenURIs'
-
+    mapping(uint256=>string) private _tokenURIs;
+    mapping(uint256=>token_information) private alltokens;
     bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
     /*
      * 0x5b5e139f ===
@@ -484,7 +492,12 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     }
 
     // TODO: create external getter functions for name, symbol, and baseTokenURI
-
+    function tokendetails(string name,string symbol,string baseTokenURI) external
+    {
+        _name=name;
+        _symbol=symbol;
+        _baseTokenURI=baseTokenURI;
+    }
     function tokenURI(uint256 tokenId) external view returns (string memory) {
         require(_exists(tokenId));
         return _tokenURIs[tokenId];
@@ -497,7 +510,11 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     // TIP #2: you can also use uint2str() to convert a uint to a string
         // see https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI_0.5.sol for strConcat()
     // require the token exists before setting
-
+    function createtokenUri(uint256 tokenId) internal
+    {
+        require(_exists(tokenId));
+        _tokenURIs[tokenId]=strConcat(_baseTokenURI,uint2str(tokenId));
+    }
 }
 
 //  TODO's: Create CustomERC721Token contract that inherits from the ERC721Metadata contract. You can name this contract as you please
@@ -508,6 +525,14 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 //      -takes in a 'to' address, tokenId, and tokenURI as parameters
 //      -returns a true boolean upon completion of the function
 //      -calls the superclass mint and setTokenURI functions
-
+    contract CustomERC721Token is ERC721Metadata('NERO','NRO','https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/')
+    {
+        function mint(address to,uint256 tokenId,string tokenURI) public onlyOwner returns(bool)
+        {
+                _mint(to,tokenId);
+                createtokenUri(tokenId);
+                return true;
+        }
+    }
 
 
