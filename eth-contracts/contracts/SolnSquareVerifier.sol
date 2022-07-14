@@ -31,16 +31,18 @@ event SolutionAdded(uint256 index,address account);
 function addSolution(uint256 token,uint256 _id,address _ad) public{
     Solutions[token].id=_id;
     Solutions[token].ad=_ad;
-    emit(_id,_ad);
+    emit SolutionAdded(_id,_ad);
 }
 
 
 // TODO Create a function to mint new NFT only after the solution has been verified
 //  - make sure the solution is unique (has not been used before)
 //  - make sure you handle metadata as well as tokenSuplly
-    function minttoken(uint256 tokenid) public
-    {
-        require(v.verifyTx());
+    function mintToken(address account, uint256 index, SquareVerifier.Proof memory proof, uint[2] memory input) public returns(bool) {
+    
+        require(v.verifyTx(proof,input),"Not a valid proof");
+        
+        
     }
 }
   
