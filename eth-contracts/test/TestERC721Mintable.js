@@ -51,7 +51,7 @@ contract('TestERC721Mintable', accounts => {
         })
     });
 
-    describe('have ownership properties', function () {
+  /*  describe('have ownership properties', function () {
         beforeEach(async function () { 
            // const ERC721MintableComplete1 = await ERC721MintableComplete.deployed();
             this.contract = await ERC721MintableComplete.new({from: account_one});
@@ -66,5 +66,5 @@ contract('TestERC721Mintable', accounts => {
             //var owner=ERC721MintableComplete.
         })
 
-    });
+    });*/
 })
