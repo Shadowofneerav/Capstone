@@ -38,9 +38,7 @@ Run the tests:
 truffle test
 ```
 
-All 11 tests should pass and your terminal should look something like this:
-
-![tests](images/test_results.png)
+All 11 tests should pass 
 
 ## SolnSquareVerifier Contract on the Rinkeby Network
 
@@ -925,8 +923,6 @@ All 11 tests should pass and your terminal should look something like this:
 
 **Website:**   https://testnets.opensea.io/collection/stonecap
 
-![OpenSea Rinkeby marketplace 1](images/opensea1.png)
-![OpenSea Rinkeby marketplace 2](images/opensea2.png)
 
 ## Zokrates Steps
 
