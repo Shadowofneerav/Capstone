@@ -44,7 +44,7 @@ All 11 tests should pass
 
 **Contract address:**  0x0c0781F05874DC06B8a0B11c71F3494D68fA8850  
 **Transaction ID:**    0xf04623598dd3d50f426d76f8370e60116fd59ea7e61016f8090d808b490c562d  
-**Etherscan:**   https://rinkeby.etherscan.io/address/0x0c0781F05874DC06B8a0B11c71F3494D68fA8850
+
 
 ## Contract ABI
 
