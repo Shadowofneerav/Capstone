@@ -51,18 +51,6 @@ All 11 tests should pass
 ```
 [
     {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
       "anonymous": false,
       "inputs": [
         {
@@ -118,30 +106,11 @@ All 11 tests should pass
         {
           "indexed": false,
           "internalType": "address",
-          "name": "trigger_address",
+          "name": "owner",
           "type": "address"
         }
       ],
       "name": "Paused",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "index",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "SolutionAdded",
       "type": "event"
     },
     {
@@ -173,19 +142,13 @@ All 11 tests should pass
       "anonymous": false,
       "inputs": [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "oldOwner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
+          "indexed": false,
           "internalType": "address",
           "name": "newOwner",
           "type": "address"
         }
       ],
-      "name": "TransferOwnership",
+      "name": "ownerShip",
       "type": "event"
     },
     {
@@ -194,11 +157,11 @@ All 11 tests should pass
         {
           "indexed": false,
           "internalType": "address",
-          "name": "trigger_address",
+          "name": "owner",
           "type": "address"
         }
       ],
-      "name": "Unpaused",
+      "name": "unpaused",
       "type": "event"
     },
     {
@@ -288,6 +251,21 @@ All 11 tests should pass
       "type": "function"
     },
     {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "contractowner",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [
         {
@@ -312,51 +290,6 @@ All 11 tests should pass
       "constant": true,
       "inputs": [],
       "name": "getBaseTokenURI",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getName",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getOwner",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getSymbol",
       "outputs": [
         {
           "internalType": "string",
@@ -396,52 +329,6 @@ All 11 tests should pass
     },
     {
       "constant": true,
-      "inputs": [],
-      "name": "isOwner",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "tokenURI",
-          "type": "string"
-        }
-      ],
-      "name": "mint",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
       "inputs": [
         {
           "internalType": "uint256",
@@ -459,15 +346,6 @@ All 11 tests should pass
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "pause",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -540,6 +418,15 @@ All 11 tests should pass
         }
       ],
       "name": "setApprovalForAll",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "setter",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -635,6 +522,31 @@ All 11 tests should pass
       "type": "function"
     },
     {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "baseTokenURI",
+          "type": "string"
+        }
+      ],
+      "name": "tokendetails",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [],
       "name": "totalSupply",
@@ -691,225 +603,29 @@ All 11 tests should pass
     },
     {
       "constant": false,
-      "inputs": [],
-      "name": "unpause",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
       "inputs": [
         {
-          "internalType": "bytes32",
-          "name": "key",
-          "type": "bytes32"
-        },
-        {
           "internalType": "address",
-          "name": "solution_account",
+          "name": "to",
           "type": "address"
         },
         {
           "internalType": "uint256",
-          "name": "solution_index",
-          "type": "uint256"
-        }
-      ],
-      "name": "addSolution",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "getNumSolutions",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "index",
+          "name": "tokenId",
           "type": "uint256"
         },
         {
-          "components": [
-            {
-              "components": [
-                {
-                  "internalType": "uint256",
-                  "name": "X",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "Y",
-                  "type": "uint256"
-                }
-              ],
-              "internalType": "struct Pairing.G1Point",
-              "name": "a",
-              "type": "tuple"
-            },
-            {
-              "components": [
-                {
-                  "internalType": "uint256[2]",
-                  "name": "X",
-                  "type": "uint256[2]"
-                },
-                {
-                  "internalType": "uint256[2]",
-                  "name": "Y",
-                  "type": "uint256[2]"
-                }
-              ],
-              "internalType": "struct Pairing.G2Point",
-              "name": "b",
-              "type": "tuple"
-            },
-            {
-              "components": [
-                {
-                  "internalType": "uint256",
-                  "name": "X",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "Y",
-                  "type": "uint256"
-                }
-              ],
-              "internalType": "struct Pairing.G1Point",
-              "name": "c",
-              "type": "tuple"
-            }
-          ],
-          "internalType": "struct SquareVerifier.Proof",
-          "name": "proof",
-          "type": "tuple"
-        },
-        {
-          "internalType": "uint256[2]",
-          "name": "input",
-          "type": "uint256[2]"
+          "internalType": "string",
+          "name": "tokenURI",
+          "type": "string"
         }
       ],
-      "name": "mintToken",
+      "name": "mint",
       "outputs": [
         {
           "internalType": "bool",
           "name": "",
           "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "index",
-          "type": "uint256"
-        },
-        {
-          "components": [
-            {
-              "components": [
-                {
-                  "internalType": "uint256",
-                  "name": "X",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "Y",
-                  "type": "uint256"
-                }
-              ],
-              "internalType": "struct Pairing.G1Point",
-              "name": "a",
-              "type": "tuple"
-            },
-            {
-              "components": [
-                {
-                  "internalType": "uint256[2]",
-                  "name": "X",
-                  "type": "uint256[2]"
-                },
-                {
-                  "internalType": "uint256[2]",
-                  "name": "Y",
-                  "type": "uint256[2]"
-                }
-              ],
-              "internalType": "struct Pairing.G2Point",
-              "name": "b",
-              "type": "tuple"
-            },
-            {
-              "components": [
-                {
-                  "internalType": "uint256",
-                  "name": "X",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "Y",
-                  "type": "uint256"
-                }
-              ],
-              "internalType": "struct Pairing.G1Point",
-              "name": "c",
-              "type": "tuple"
-            }
-          ],
-          "internalType": "struct SquareVerifier.Proof",
-          "name": "proof",
-          "type": "tuple"
-        },
-        {
-          "internalType": "uint256[2]",
-          "name": "input",
-          "type": "uint256[2]"
-        }
-      ],
-      "name": "getKey",
-      "outputs": [
-        {
-          "internalType": "bytes32",
-          "name": "",
-          "type": "bytes32"
         }
       ],
       "payable": false,
@@ -921,7 +637,7 @@ All 11 tests should pass
 
 ## OpenSea marketplace
 
-**Website:**   https://testnets.opensea.io/collection/stonecap
+**Website:**   https://testnets.opensea.io/assets/rinkeby/0x24ce84eb794125ba56036fd7eecaa726b0f98bdb/1
 
 
 ## Zokrates Steps
