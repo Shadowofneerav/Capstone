@@ -42,8 +42,8 @@ All 11 tests should pass
 
 ## SolnSquareVerifier Contract on the Rinkeby Network
 
-**Contract address:**  0x0c0781F05874DC06B8a0B11c71F3494D68fA8850  
-**Transaction ID:**    0xf04623598dd3d50f426d76f8370e60116fd59ea7e61016f8090d808b490c562d  
+**Contract address:**  0x24ce84eb794125Ba56036fD7EeCAa726B0f98Bdb  
+**Transaction ID:**    0xd3907ed6b44fe5f3187c970096c229e12136228df731221ccee994004b5139d1 
 
 
 ## Contract ABI
