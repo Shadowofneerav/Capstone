@@ -19,11 +19,11 @@
  */
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-const infuraKey = "https://rinkeby.infura.io/v3/495dd45807b84095993b4db1605be805";
+const infuraKey = "infura key";
 //
 //const fs = require('fs');
  //const mnemonic = fs.readFileSync(".secret").toString().trim();
- const mnemonic ="guitar useless creek gas peasant group fault escape seven require negative seven";
+ const mnemonic ="write your metamask seed phrase";
 
 
 module.exports = {
